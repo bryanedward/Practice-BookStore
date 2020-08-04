@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication.Models;
 
 namespace WebApplication.Migrations
 {
     [DbContext(typeof(DbContextDatabase))]
-    partial class DbContextDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20200804011233_isbdModels")]
+    partial class isbdModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -2,24 +2,16 @@
 @using System.Linq
 @model WebApplication.Pages.BookList.Index
 
-@{
-    ViewData["Title"] = "Privacy Policy";
-}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Lista de libros</title>
-</head>
-<body>
 <div class="container row p-0 m-0">
-    <div class="col-9">
+    <div class="col-8">
         <h3 class="text-info">Lista de Libros</h3>
     </div>
     <div class="col-3">
-        <a class="btn btn-info form-control">Agregar libros</a>
+        <a asp-page="Create" class="btn btn-info form-control">Agregar libros</a>
     </div>
     <div class="col-12">
+        <form method="post">
         @if (Model.Bookses.Count() > 0)
         {
             <table class="table table-striped border">
@@ -31,6 +23,9 @@
                         @Html.DisplayNameFor(data => data.Bookses.FirstOrDefault().Author)
                     </th>
                     <th>
+                        <label asp-for="Bookses.FirstOrDefault().ISBN"></label>
+                    </th>
+                    <th>
                         <label>Eliminar / Editar</label>
                     </th>
                 </tr>
@@ -38,14 +33,22 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(m=>item.NameBook)
-                        </td> 
-                        <td>
-                            @Html.DisplayFor(m=>item.Author)
+                            @Html.DisplayFor(m => item.NameBook)
                         </td>
                         <td>
-                            <button class="btn btn-danger btn-sm">Eliminar</button>
-                            <a class="btn btn-success btn-sm">Editar</a>
+                            @Html.DisplayFor(m => item.Author)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.ISBN)
+                        </td>
+                        <td>
+                            <button asp-page-handler="Eliminar" 
+                                    asp-route-id="@item.Id" 
+                                    onclick="return confirm('¿Seguro de eliminar?')" class="btn btn-danger btn-sm">Eliminar</button>
+                            
+                            <a asp-page="Edit" 
+                               asp-route-id="@item.Id" 
+                               class="btn btn-success btn-sm">Editar</a>
                         </td>
                     </tr>
                 }
@@ -54,8 +57,7 @@
         else
         {
             <p> No hay libros</p>
-        }
+        }    
+        </form>
     </div>
 </div>
-</body>
-</html>
