@@ -30,7 +30,7 @@ namespace WebApplication.Pages.BookList
                 updateBooks.NameBook = Books.NameBook;
                 updateBooks.ISBN = Books.ISBN;
                 await _database.SaveChangesAsync();
-                return Redirect("Index");
+                return RedirectToPage("Index");
             }
             else
             {

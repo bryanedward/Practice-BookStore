@@ -1,5 +1,7 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebApplication.Models;
 
 namespace WebApplication.Controllers
@@ -17,14 +19,32 @@ namespace WebApplication.Controllers
 
         // GET 
         [HttpGet]
-        public IActionResult GeAll()
+        public async Task<IActionResult> GeAll()
         {
             return Json(new
             {
-                data = _database.Bookses.ToList()
+                data = await _database.Bookses.ToListAsync()
             });
         }
-        
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var bookFromDatabase = await _database.Bookses.FirstOrDefaultAsync(data => data.Id == id);
+            if (bookFromDatabase == null)
+            {
+                return Json(new
+                {
+                    success = false , message = "error en la eliminación"
+                });
+            }
+            _database.Bookses.Remove(bookFromDatabase);
+            await _database.SaveChangesAsync();
+            return Json(new
+            {
+                success = true , message = "eliminación satisfactoria"
+            });
+        }
         
     }
 }
