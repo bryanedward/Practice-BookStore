@@ -19,7 +19,7 @@ function LoadDataTable() {
                 "data" : "id",
                 "render": function (data) {
                     return ` <div class="text-center">
-                                <a href="Edit?id=${data}" 
+                                <a href="/BookList/Upsert?id=${data}" 
                                     class="btn btn-success" 
                                     style="cursor: pointer">
                                     Editar
@@ -46,9 +46,10 @@ function Delete(url) {
         title: "estas seguro",
         text: "una vez eliminado los datos ya no se podran eliminar",
         icon: "warning",
+        showCancelButton: true,
         dangerMode: true
     }).then((willDelete) => {
-        if (willDelete){
+        if (willDelete.value){
            $.ajax({
                type: "DELETE",
                url: url,
